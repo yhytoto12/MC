@@ -53,18 +53,21 @@ void mat_mul(float *A, float *B, float *C, int M, int N, int K) {
     CHECK_ERROR(err);
   }
 
-
   // Setup global work size and local work size
-  size_t gws[2] = {(M + ndev - 1) / ndev, (N + ITEMS - 1) / ITEMS}, lws[2] = {BS, BS / ITEMS};
-  for (int i = 0; i < 2; ++i) {
-    // By OpenCL spec, global work size should be MULTIPLE of local work size
-    // Formula below achieve it
-    // e.g., gws = 25, lws = 16, then (25 + 16 - 1) / 16 * 16 = 40 / 16 * 16 = 2 * 16 = 32
-    gws[i] = (gws[i] + lws[i] - 1) / lws[i] * lws[i];
+  size_t gws[MAX_DEV][2];
+	size_t lws[2] = {BS, BS / ITEMS};
+	for (int i = 0; i < ndev; i++) {
+		gws[i][0] = MD[i];
+		gws[i][1] = (N + ITEMS - 1) / ITEMS;
+		for (int j = 0; j < 2; j++) {
+    	// By OpenCL spec, global work size should be MULTIPLE of local work size
+			gws[i][j] = (gws[i][j] + lws[j] - 1) / lws[j] * lws[j];
+		}
 	}
+
   // Run kernel
   for(int i = 0; i < ndev; i++) {
-    err = clEnqueueNDRangeKernel(queue[i], kernel[i], 2, NULL, gws, lws, 0, NULL, NULL);
+    err = clEnqueueNDRangeKernel(queue[i], kernel[i], 2, NULL, gws[i], lws, 0, NULL, NULL);
     CHECK_ERROR(err);
   }
 
