@@ -1,5 +1,5 @@
-#define BS 64 // block size : local work set size
-#define ITEMS 16  //
+#define BS 56 // block size : local work set size
+#define ITEMS 8  //
 
 __kernel void sgemm(__global float *A, __global float *B, __global float *C, int M, int N, int K) {
   const int CBS = BS / ITEMS;                               // interval of column

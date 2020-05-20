@@ -9,9 +9,9 @@
     exit(EXIT_FAILURE); \
   }
 
-#define BS 64
-#define ITEMS 16
-#define MAX_DEV 4
+#define BS 56
+#define ITEMS 8
+#define MAX_DEV 4 
 
 static cl_int err;
 static cl_platform_id platform;
