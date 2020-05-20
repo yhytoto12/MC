@@ -1,0 +1,22 @@
+Options:
+  Problem size: M = 8192, N = 8192, K = 8192
+  Number of threads: 1
+  Number of iterations: 5
+  Print matrix: off
+  Validation: off
+
+Initializing matrix... done!
+Initializing OpenCL...
+Detected OpenCL platform: NVIDIA CUDA
+Detected OpenCL device: GeForce GTX 1080
+Detected OpenCL device: GeForce GTX 1080
+Warming up GPU...1.322194 sec
+Warming up GPU...1.344391 sec
+Warming up GPU...1.353078 sec
+Calculating...(iter=0) 1.194449 sec
+Calculating...(iter=1) 1.184318 sec
+Calculating...(iter=2) 1.186602 sec
+Calculating...(iter=3) 1.185810 sec
+Calculating...(iter=4) 1.172297 sec
+Avg. time: 1.184695 sec
+Avg. throughput: 928.096675 GFLOPS
